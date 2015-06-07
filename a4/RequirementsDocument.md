@@ -33,21 +33,34 @@ In the end if no error occurs, the software will show the students the average n
  
 ###2.1 Functional Requirements
 
-2.1.1 The software must be written in Java and must not make use of any nonstandard Java libraries.   
+2.1.1 The software must be written in Java and must not make use of any nonstandard Java libraries.
+ 
 2.1.2 The software must have a main method and should be executable from the command line using the Java command.
+
 2.1.3 The software must be pre-compiled and testable on machines running Java 1.6 or 1.7.
-2.1.4 The software must come with end user documentation. 
+
+2.1.4 The software must come with end user documentation.
+ 
 2.1.5 The software must take raw text file as input. The file path to the file is provided by the user via a command line argument.
+
 2.1.6 The software must return friendly and helpful error messages to the user when anything goes wrong. For example, the software should display “File can not be found” when it can not locate the input text file provided by the user.
+
 2.1.7 The software must include a space, sequence of spaces, and a tab as default word delimiters.
+
 2.1.8 The software must allow users to customize word delimiters using flag -w.
+
 2.1.9 The software must set minimum word length as 3 by default.
+
 2.1.10 The software must allow users to customize minimum word length using flag -l.
+
 2.1.11 The software must include a period, a question mark, a semi-colon and an exclamation mark as default sentence delimiters.
+
 2.1.12 The software must allow users to customize sentence delimiters using flag -d.
+
 2.1.13 The software must output the average number of words per sentence rounded down to the nearest integer.
 
 
 ###2.2 Non-Functional Requirements
-2.2.1 The system should be able to accommodate more than 270 users. 
+2.2.1 The system should be able to accommodate more than 270 users.
+
 2.2.2 The program should be able to finish analyzing an essay in less than 10 minutes so that the users will not need to wait long for the results.
