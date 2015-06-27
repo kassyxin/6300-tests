@@ -1,0 +1,106 @@
+# File
+  Size:
+      Empty.			[single][property emptyfile] 
+      Not empty.
+
+  Number of lines covering all the fields:
+      None.			[single][if !emptyfile][property noMatchingFields]
+      One.                      [if !emptyfile]
+      Many.                     [if !emptyfile]
+
+  Position of the line covering all the fields:
+      First line.		[single][if !emptyfile && !noMatchingFields]
+      Last line.		[single][if !emptyfile && !noMatchingFields]
+      Any.				[if !emptyfile && !noMatchingFields]
+
+  Coverage of the fields in one line:
+      Not covered at all.       [single][if !emptyfile]
+      Partially covered.        [single][if !emptyfile]
+      Covered.                  [if !emptyfile && !noMatchingFields]
+
+  Presence of the delimiter in the file:
+      Not present.              [single][if !emptyfile][property noDelimiters]
+      One.                      [if !emptyfile]
+      Many.			[if !emptyfile]
+
+  Presence of the delimiter in one line:
+      Not present.              [single][if !emptyfile && !noDelimiters]
+      Present.                  [if !emptyfile && !noDelimiters]
+  
+  Position of the delimiter in the file:
+     First line.                [single][if !emptyfile && !noDelimiters]
+     Last line.                 [single][if !emptyfile && !noDelimiters]
+     Any.		        [if !emptyfile && !noDelimiters]
+
+  
+# Filename
+  Presence of a file corresponding to the name:
+      Not present.		[error]
+      Present.
+
+
+# Fields  
+  Number of ranges:
+     Empty.			[error][property emptyfield]
+     One.			[property singlerange]
+     More than one.		[property multipleranges]
+  
+  Presence of commas in a multi-range field list:
+     Not present.                [error] [if multipleranges]
+     Present and correctly positioned.    [if multipleranges]
+     Present but incorrectly positioned.     [error] [if multipleranges]
+
+  Presence of commas in a single-range field list:
+     Not present.                [if singlerange]
+     Present.                    [error][if multipleranges]
+
+  Arrangement of ranges in a multi-range fields:
+     Ascending.			[if multipleranges]
+     Descending.                [if multipleranges][single]
+     Unsorted.                  [if multipleranges][single]
+  
+  Presence of overlapping ranges in a multi-range fields:
+    Not present.                [if multipleranges]
+    Present. 			[if multipleranges][single]
+
+  Number of indices used to present a range:
+     Zero.			[error][if !emptyfield][property noindex]
+     One.			[if !emptyfield][property singleindex]
+     Two.                       [if !emptyfield][property twoindices]
+     More than Two.             [error][if !emptyfield]
+ 
+  Presence of a dash in a non-unary range:
+      Not present.		[if twoindices][error]
+      Present.			[if twoindices]
+
+  Presence of a dash in a unary range:
+      Not present.		[if singleindex]
+      Present.			[if singleindex][error]
+
+  Arrangement of indices in a non-unary range:
+     Ascending.			[if twoindices]
+     Non-ascending.             [if twoindices][error]
+
+  Value of a field index:
+     Zero.                      [error][if !emptyfield][property zerothvalue]
+     <0.			[error][if !emptyfield][property negativevalue]
+     >0.			[if !emptyfield]
+     maxInt.                    [single][if !emptyfield]
+
+
+
+# Delimiter
+  Presence of a specified delimiter:
+      Not present.              [property unspecified]
+      Present.                  [property specified]
+  
+  Length of the specified delimiter:
+      Empty.		        [error][if specified]
+      One.			[if specified]
+      More than one.            [error][if specified]
+
+  Presence of enclosing quotes:
+      Not enclosed.		[error][if specified]
+      Enclosed.			[if specified]
+      Incorrect.		[error][if specified]
+  
