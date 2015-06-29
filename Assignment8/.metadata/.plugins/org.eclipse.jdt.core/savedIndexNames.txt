@@ -1,0 +1,2 @@
+INDEX VERSION 1.127+/Users/Xin/test/6300-tests/Assignment8/.metadata/.plugins/org.eclipse.jdt.core
+2876505039.index
