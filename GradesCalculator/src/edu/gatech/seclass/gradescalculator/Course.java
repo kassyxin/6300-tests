@@ -1,8 +1,10 @@
 package edu.gatech.seclass.gradescalculator;
 //import java.util.ArrayList;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
 
-
+import org.apache.poi.ss.usermodel.Cell;
 //import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Row;
 
@@ -34,8 +36,7 @@ public class Course {
 		HashSet<Student> s = new HashSet<Student>();
 		int studentNum=students.getNumStudents();
 		for (int i=1; i<=studentNum;i++ ){
-			Student student = new Student();
-			
+			Student student = new Student();			
 			//set student's name and gtid
 			Row info=students.studentsInfo.getRow(i);
 			//System.out.println(info.getCell(0).getStringCellValue());
@@ -106,6 +107,71 @@ public class Course {
 		}
 		return s;
 		
+	}
+	
+	public void addAssignment(String assname){
+		grades.addAssignment(assname);
+	}
+	
+	public void updateGrades(Grades newgrades){
+		this.grades=newgrades;
+	}
+	
+	public int getAverageAssignmentsGrade(Student student){
+		String GTID= student.getGtid();
+		int target=grades.findStudentRow(GTID);	
+		Row targetRow=grades.individualGrades.getRow(target);
+		double total=0;
+		for (int j=1; j<=getNumAssignments();j++){
+			//System.out.println(targetRow.getCell(j).getNumericCellValue());
+			total=total+ targetRow.getCell(j).getNumericCellValue();
+		}
+		return (int) (total/getNumAssignments()+0.5);	
+	}
+	
+	public int getAverageProjectsGrade(Student student){
+		int projectNum=getNumProjects(); 
+		
+		//get the individual contribs
+		String GTID= student.getGtid();
+		int target=grades.findStudentRow(GTID);	
+		//System.out.println(target);
+		Row targetRow=grades.individualContribs.getRow(target);
+		double [] indiContribs=new double[projectNum];
+		for (int j=1; j<=projectNum;j++){
+			indiContribs[j-1]= targetRow.getCell(j).getNumericCellValue();			
+		}
+		//System.out.println(indiContribs[0]);
+		//get the team grades
+		String teamNum=findTeam(student.getName());
+		int tNum=1;
+		for (int i=1; i<=grades.teamGrades.getLastRowNum(); i++){
+			Row row=grades.teamGrades.getRow(i);
+			if (row.getCell(0).getStringCellValue().equals(teamNum)){
+				tNum=i;
+				break;
+			}		
+		}
+		
+		Row teamRow=grades.teamGrades.getRow(tNum);
+		double [] teamGrades=new double[projectNum];
+		for (int j=1; j<=projectNum;j++){
+			teamGrades[j-1]=teamRow.getCell(j).getNumericCellValue();			
+		}
+		//System.out.println(teamGrades[0]);		
+		double total=0;
+		for (int k=0; k<projectNum; k++){
+			total=total+indiContribs[k]*teamGrades[k];
+		}
+		return (int) (total/(100*projectNum)+0.5);	
+	}
+	
+	public void addGradesForAssignment(String assignmentName, HashMap<Student, Integer> grades){
+		this.grades.addGradesForAssignment(assignmentName, grades);	
+	}
+	
+	public void addIndividualContributions(String projectName, HashMap<Student, Integer> contributions){
+		this.grades.addIndividualContributions(projectName, contributions);
 	}
 	
 }

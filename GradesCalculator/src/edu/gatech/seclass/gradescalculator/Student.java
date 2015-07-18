@@ -4,6 +4,7 @@ public class Student {
 	private String name;
 	private String gtid;
 	private String team;
+	private Course course;
 	private int attendance;
 	
 	public Student(){
@@ -11,7 +12,17 @@ public class Student {
 		this.gtid="";
 		this.team="";
 		this.attendance=0;
+		this.course=null;
 	}
+	
+	public Student(String name, String gtid, Course course){
+		this.name=name;
+		this.gtid=gtid;
+		this.team="";
+		this.attendance=0;
+		this.course=course;
+	}
+	
 	
 	public void setName(String name){
 		this.name=name;
